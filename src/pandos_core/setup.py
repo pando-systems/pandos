@@ -9,7 +9,7 @@ with open("README.md", "r") as file:
     readme = file.read()
 
 with open("requirements.txt", "r") as file:
-    requirements = [req for req in file.read().split("\n") if req and not req.startswith("#")]
+    requirements = [req for req in file.read().splitlines() if req and not req.startswith("#")]
 
 with open(os.path.join("pandos", "version"), "r") as file:
     version = file.read().strip()
@@ -58,7 +58,7 @@ setup(
     scripts=[
         "bin/pandos"
     ],
-    install_requirements=requirements,
+    install_requires=requirements,
     python_requires=">=3.10, <4",
     license=license_content,
 )

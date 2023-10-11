@@ -22,7 +22,7 @@ jobs:
       - name: python-wheel
         run: |
           (cd src/pandos_core; python setup.py bdist_wheel)
-      - name: financetoolbox-install
+      - name: pandos-install
         run: |
           (cd src/pandos_core; python -m pip install dist/pandos*.whl)
       - name: hello-world
