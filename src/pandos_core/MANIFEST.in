@@ -1,0 +1,3 @@
+include requirements.txt
+include pandos/version
+include bin/pandos
