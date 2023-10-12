@@ -7,13 +7,11 @@ from typing import (
     TypeVar,
 )
 
+from pandos.monads.exceptions import ErrorEitherInconsistency
+
+
 A = TypeVar("A")
 B = TypeVar("B")
-
-
-class EitherMonadErrors:
-    class EitherInconsistency(Exception):
-        pass
 
 
 @dataclass(frozen=True, slots=True)
@@ -69,7 +67,7 @@ class Either(Generic[A]):
             case left if isinstance(left, Left):
                 raise left.exception
             case _:
-                raise EitherMonadErrors.EitherInconsistency(
+                raise ErrorEitherInconsistency(
                     "Inconsistency detected on `resolve` method"
                 )
 
