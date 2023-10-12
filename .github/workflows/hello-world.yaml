@@ -21,10 +21,10 @@ jobs:
           python -m pip install setuptools wheel
       - name: python-wheel
         run: |
-          (cd src/pandos_core; python setup.py bdist_wheel)
+          (cd pandos/src/main/pandos; python setup.py bdist_wheel)
       - name: pandos-install
         run: |
-          (cd src/pandos_core; python -m pip install dist/pandos*.whl)
+          (cd pandos/src/main/pandos; python -m pip install dist/pandos*.whl)
       - name: hello-world
         run: |
           pandos hello
