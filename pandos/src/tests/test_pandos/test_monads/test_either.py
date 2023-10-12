@@ -47,8 +47,10 @@ def test_either_sticky_left():
 
 
 def test_either_right_flatmap():
+    # TODO: Add test for right flatmap
     pass
 
 
 def test_either_left_flatmap():
+    # TODO: Add test for left flatmap
     pass
