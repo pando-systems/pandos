@@ -5,13 +5,16 @@ from typing import (
 )
 
 
+PANDOS_CODEBASE_PATH = os.path.join("src", "main")
+
+
 with open("README.md", "r") as file:
     readme = file.read()
 
 with open("requirements.txt", "r") as file:
     requirements = [req for req in file.read().splitlines() if req and not req.startswith("#")]
 
-with open(os.path.join("pandos", "version"), "r") as file:
+with open(os.path.join("src", "main", "pandos", "version"), "r") as file:
     version = file.read().strip()
 
 with open("LICENSE", "r") as file:
@@ -48,13 +51,16 @@ setup(
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.10",
     ],
+    package_dir={
+        "": PANDOS_CODEBASE_PATH,
+    },
     package_data={
         "": [
             "version",
         ]
     },
     include_package_data=True,
-    packages=get_packages(),
+    packages=get_packages(here=PANDOS_CODEBASE_PATH),
     scripts=[
         "bin/pandos"
     ],
