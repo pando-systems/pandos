@@ -62,7 +62,7 @@ setup(
     include_package_data=True,
     packages=get_packages(here=PANDOS_CODEBASE_PATH),
     scripts=[
-        "bin/pandos"
+        os.path.join("bin", "pandos"),
     ],
     install_requires=requirements,
     python_requires=">=3.10, <4",
