@@ -1,1 +1,1 @@
-pycodestyle src/ --max-line-length 120
+pycodestyle pandos/ --max-line-length 120
