@@ -48,6 +48,7 @@ def get_source_files(
 ) -> List[str]:
     skip_dirs = skip_dirs or []
     skip_files = skip_files or []
+
     def traverse(path: str):
         for _, dirs, files in os.walk(path):
             node_files = [
@@ -76,10 +77,12 @@ def get_packages(here: str = ".", pandos_prefix: str = "pandos") -> List[str]:
         if package.startswith(pandos_prefix)
     ]
 
+
 mypyc_configs = [
-    #"--disallow-untyped-defs",  # TODO: Enable this option eventually for better performance
+    # "--disallow-untyped-defs",  # TODO: Enable this option eventually for better performance
     "--ignore-missing-imports",
 ]
+
 
 mypyc_target_files = get_source_files(
     ignore_mark="# pandos-mypyc-ignore",
@@ -134,7 +137,7 @@ if not PANDOS_SETUP_MOCK:
         install_requires=requirements,
         python_requires=">=3.10, <4",
         license=license_content,
-        **({} if PANDOS_DISABLE_MYPYC else dict(ext_modules=mypycify(mypyc_configs + mypyc_target_files))), 
+        **({} if PANDOS_DISABLE_MYPYC else dict(ext_modules=mypycify(mypyc_configs + mypyc_target_files))),
     )
 else:
     # This is temporal, we should eventually remove this!
