@@ -67,7 +67,7 @@ class Either(Generic[A]):
             case left if isinstance(left, Left):
                 raise left.exception
             case _:
-                pandos_exceptions.MONADS_EITHER_INCONSISTENCY.throw(
+                return pandos_exceptions.MONADS_EITHER_INCONSISTENCY.throw(
                     message="Either Monad inconsistency detected when calling `resolve` method."
                 )
 
