@@ -1,6 +1,7 @@
-# pando-systems-core
+# Pandos
 
-Pando Systems - Core Implementation
+This is the `pandos` python package by Pando Systems.
+
 
 * Developed with python version: `3.10.12`
 
@@ -32,23 +33,13 @@ Install the development dependencies:
 $ pip install -r requirements-develop.txt
 ```
 
-And install the `pandos-core` library:
+And install the `pandos` library:
 
 ```commandline
-$ pip install -e src/pandos_core
+$ pip install -e pandos
 ```
 
-### Installing extension
+## User Guide
 
-The pandos library is composed by a set of packages named "extensions". Each extension represents a "semantic grouping"
-of system components and "extends" the `pandos.system` module.
+[User guide referece here](USER_GUIDE.md)
 
-The two main extensions are:
-* `ext_pandos_backend`: Contains the `Pandos Server` implementation.
-* `ext_pandos_frontend`: Contains the `Pandos Frontend Worker` implementation.
-
-You can install an extension in your local machine directly via pip:
-
-```commandline
-$ pip install -e src/<extension_name>
-```
