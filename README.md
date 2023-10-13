@@ -4,7 +4,7 @@ This is the `pandos` python package by Pando Systems.
 
 
 * Developed with python version: `3.10.12`
-
+* User guide [here](USER_GUIDE.md).
 
 ## Configure Python environment with pyenv
 
@@ -38,8 +38,4 @@ And install the `pandos` library:
 ```commandline
 $ pip install -e pandos
 ```
-
-## User Guide
-
-[User guide referece here](USER_GUIDE.md)
 

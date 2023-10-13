@@ -1,5 +1,12 @@
 # Pandos - User Guide
 
+## Installation
+
+Install via pip:
+
+```commandline
+$ pip install ???
+```
 
 ## Module Guide: `pandos.monads.either`
 
