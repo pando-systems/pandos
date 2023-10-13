@@ -37,10 +37,14 @@ $ pip install -r requirements-develop.txt
 And install the `pandos` library:
 
 ```commandline
-$ pip install -e pandos
+$ PANDOS_DISABLE_MYPYC=1 pip install -e pandos
 ```
 
 Alternatively, you can also build pandos into a python wheel:
 * Build wheel: `(cd pandos; python setup.py bdist_wheel)`
 * Install: `python -m pip install pandos/dist/pandos*.whl`
+
+When installing directly with `pip install` vs `python wheel`? 
+* The `pip install -e pandos` approach works best when you are modifying the codebase heavily and you want to get the updates ASAP into the python package without having to re-install. Consider that the `PANDOS_DISABLE_MYPYC` must always be activated (i.e., `1`).
+* The `python wheel` approach works best when you want to have an static version of the codebase and potentially compiled as c-extension for performance gains.
 
