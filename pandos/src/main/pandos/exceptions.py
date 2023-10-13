@@ -10,8 +10,9 @@ class ExceptionEnumBuilder(enum.Enum):
     @classmethod
     def members(cls, name: str, **kwargs):
         return cls(
-            name,
-            [
+            value=name,
+            # type: ignore
+            names=[
                 (exc_name, exc_cls)
                 for exc_name, exc_cls in kwargs.items()
             ]
