@@ -1,5 +1,5 @@
 import enum
-from typing import Optional, Type
+from typing import ClassVar, Optional, Type
 
 
 class ExceptionEnumBuilder(enum.Enum):
@@ -20,7 +20,7 @@ class ExceptionEnumBuilder(enum.Enum):
 
 
 class PandosException(Exception):
-    default_message: str = "Pandos Generic Exception"
+    default_message: ClassVar[str] = "Pandos Generic Exception"
 
     def __init__(self, message: Optional[str] = None):
         super().__init__(message or self.default_message)
