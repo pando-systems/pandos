@@ -49,6 +49,18 @@ class PandosException(Exception):
                 exception_name="PandosMonadsEitherInconsistency",
                 default_message="Inconsistency detected in Either Monad",
             ),
+            FUTURES_UNRESOLVED_ERROR=cls.custom(
+                exception_name="PandosFuturesUnresolvedError",
+                default_message="The future has not been resolved yet."
+            ),
+            FUTURES_INCONSISTENT_ERROR=cls.custom(
+                exception_name="PandosFuturesInconsistentError",
+                default_message="An inconsistent future was detected... this should not happen."
+            ),
+            FUTURES_INVALID_STATE_ERROR=cls.custom(
+                exception_name="PandosFuturesInvalidStateError",
+                default_message="Future match-statement detected an invalid state... this should never happen.",
+            )
         )
 
 
