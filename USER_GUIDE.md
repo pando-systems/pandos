@@ -8,6 +8,71 @@ Install via pip:
 $ pip install ???
 ```
 
+## Module Guide: `pandos.exceptions`
+
+The pandos-exceptions module contains 2 key components used to manage exceptions:
+* `ExceptionEnumBuilder` class: this is an utility class that facilitates creating the an exception-based enum class.
+* `PandosException` class: this is a custom exception class that inherits from the build-in `Exception`. 
+  All of the pandos exceptions inherit from this custom class and are implemented via the `ExceptionEnumBuilder` utility
+  class in the `enums` classmethod.
+
+You can register new custom exceptions by modifying the `enums` classmethod and adding a key-value as following:
+* Key: The exception name that will be used as identifier for the enum (e.g., `MY_CUSTOM_EXCEPTION`)
+* Val: The creation of the actual exception via the `cls.custom` classmethod (e.g., `cls.custom(exception_name="MyCustomExc")`)
+
+```python
+...
+    @classmethod
+    def enums(cls):
+        return ExceptionEnumBuilder.members(
+            name="PandosExceptionCatalog",
+            # Register exceptions here:
+            PANDOS_BUILTIN_CUSTOM_EXCEPTION=cls.custom(
+                exception_name="PandosBuiltInCustomException",
+                default_message="This is an example custom exception - you should not find this error message in prod",
+            ),
+            MY_CUSTOM_EXCEPTION=cls.custom(
+                exception_name="MyCustomExc",
+            ),
+        )
+```
+
+All exceptions are available as enums in the `pandos_exceptions` variable that you can import via the following pattern:
+
+```python
+from pandos.exceptions import pandos_exceptions
+```
+
+This facilitates pattern matching:
+
+```python
+from pandos.exceptions import pandos_exceptions, PandosException
+
+def something():
+    # FYI Pandos exceptions can be "raised" via the ".throw()" method!
+    pandos_exceptions.PANDOS_BUILTIN_CUSTOM_EXCEPTION.throw()
+
+# Example 1:
+try:
+    something()
+except PandosException as e:
+    match pandos_exceptions(type(e)):
+        case pandos_exceptions.PANDOS_BUILTIN_CUSTOM_EXCEPTION:
+            print("You should see this message.")
+        case pandos_exceptions.MY_CUSTOM_EXCEPTION:
+            print("This message shouldn't be shown.")
+        case _:
+            print("Neither this message.")
+
+# Example 2:
+try:
+    something()
+except pandos_exceptions.PANDOS_BUILTIN_CUSTOM_EXCEPTION.value:
+    print("You should see this message, again.")
+# ...
+```
+
+
 ## Module Guide: `pandos.monads.either`
 
 This module contains a simplified implementation of the `Either` monad in python. The idea is design an Abstract Data Type
