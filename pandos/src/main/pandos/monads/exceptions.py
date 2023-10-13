@@ -1,3 +1,0 @@
-
-class ErrorEitherInconsistency(Exception):
-    pass

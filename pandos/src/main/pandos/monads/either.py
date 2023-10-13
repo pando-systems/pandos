@@ -7,7 +7,7 @@ from typing import (
     TypeVar,
 )
 
-from pandos.monads.exceptions import ErrorEitherInconsistency
+from pandos.exceptions import pandos_exceptions
 
 
 A = TypeVar("A")
@@ -67,8 +67,8 @@ class Either(Generic[A]):
             case left if isinstance(left, Left):
                 raise left.exception
             case _:
-                raise ErrorEitherInconsistency(
-                    "Inconsistency detected on `resolve` method"
+                pandos_exceptions.MONADS_EITHER_INCONSISTENCY.throw(
+                    message="Either Monad inconsistency detected when calling `resolve` method."
                 )
 
 
