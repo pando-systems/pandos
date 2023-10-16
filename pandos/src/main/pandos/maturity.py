@@ -10,6 +10,10 @@ from pandos.settings import (
 )
 
 
+# pandos-mypyc-ignore-file
+# TODO: This file is ingored due to the following mypyc error:
+#       Non-extension classes may not inherit from extension classes.
+#       There's an on-going thread in github to fix this: https://github.com/python/mypy/issues/9612
 @dataclass(frozen=True)
 class FeatureMaturity:
     tag: str
