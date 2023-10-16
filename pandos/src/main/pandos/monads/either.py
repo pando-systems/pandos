@@ -7,7 +7,16 @@ from typing import (
     TypeVar,
 )
 
+
+from pandos.settings import get_logger
 from pandos.exceptions import pandos_exceptions
+from pandos.maturity import MaturityLevel
+
+
+MaturityLevel.ALPHA.set_module(
+    file=__file__,
+    logger=get_logger(name=__name__)
+)
 
 
 A = TypeVar("A")

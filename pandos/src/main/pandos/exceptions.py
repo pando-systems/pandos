@@ -60,7 +60,15 @@ class PandosException(Exception):
             FUTURES_INVALID_STATE_ERROR=cls.custom(
                 exception_name="PandosFuturesInvalidStateError",
                 default_message="Future match-statement detected an invalid state... this should never happen.",
-            )
+            ),
+            FEATURE_MATURITY_LEVEL_UNDEFINED=cls.custom(
+                exception_name="PandosFeatureMaturityLevelUndefined",
+                default_message="Feature maturity level undefined... this should not happen!"
+            ),
+            FEATURE_MATURITY_LEVEL_UNDEFINED_MESSAGE_INCONSISTENCY=cls.custom(
+                exception_name="PandosFeatureMaturityLevelUndefinedMessageInconsistency",
+                default_message="The feature maturity level being used should have a message template."
+            ),
         )
 
 

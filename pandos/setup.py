@@ -85,7 +85,7 @@ mypyc_configs = [
 
 
 mypyc_target_files = get_source_files(
-    ignore_mark="# pandos-mypyc-ignore",
+    ignore_mark="# pandos-mypyc-ignore-file",
     skip_dirs=[
         "__pycache__",
     ],
