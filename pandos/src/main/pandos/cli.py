@@ -1,6 +1,5 @@
 import os
 import datetime as dt
-import logging
 from time import perf_counter
 from dataclasses import dataclass
 from types import TracebackType
@@ -8,7 +7,6 @@ from typing import (
     Any,
     Optional,
     Type,
-    Union,
 )
 
 from pandos.version import Version, version
@@ -38,6 +36,13 @@ class CLI:
 
     def environ(self, varname: str) -> Optional[str]:
         return os.environ.get(varname)
+
+    def feature_maturity(self, module: str):
+        # TODO: Improve implementation...
+        #       ATM we are just triggering the log function by importing the module by name
+        import importlib
+
+        importlib.import_module(module)
 
     def hello(self, name: Optional[str] = None):
         name = name or "world"
