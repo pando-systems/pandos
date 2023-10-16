@@ -8,6 +8,43 @@ Install via pip:
 $ pip install ???
 ```
 
+## Using the Pandos CLI
+
+Once you have pandos installed, you should be able to use the CLI. Test it out via the following commands:
+* `pandos version`
+* `pandos about`
+
+The following command can also be used for testing:
+
+```commandline
+$ pandos hello
+```
+
+Arguments can be provisioned as following:
+* `pandos hello --name Panda`
+
+### Execution Modes
+
+There are 2 ways of executing a pandos-cli command.
+
+**Option 1**: Direct execution
+
+The direct execution looks as following: `pandos <command> <arguments>`
+
+
+```commandline
+$ pandos hello --name Panda
+```
+
+**Option 2**: Indirect excution  
+
+The indirect execution passes through the `execute` command and adds additional execution metadata info. For example:
+
+```commandline
+$ pandos execute hello --name Panda
+```
+
+
 ## Module Guide: `pandos.exceptions`
 
 The pandos-exceptions module contains 2 key components used to manage exceptions:
@@ -182,7 +219,7 @@ As you can notice, the `Option 3` & `Option 4` approaches facilitate working wit
 using any of those two approaches. Consider that `Option 3` could start to become more complex when adding more monad
 instances while using the either-comprehension approach maintains simplicity.
 
-Example: Create an `either_d` that contains the sum of `either_a`, `either_b, and `either_c`.
+Example: Create an `either_d` that contains the sum of `either_a`, `either_b`, and `either_c`.
 
 ```python
 # Sol.1 Using map/flat_map implementation
