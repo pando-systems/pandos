@@ -11,7 +11,7 @@ from typing import (
 from pandos.exceptions import pandos_exceptions
 from pandos.futures.store import FutureStore
 from pandos.futures.enums import FutureStatus
-from pandos.either import (
+from pandos.monads.either import (
     Either,
     Right,
     Left,

@@ -7,7 +7,7 @@ from typing import (
     TypeVar,
 )
 from pandos.futures.enums import FutureStatus
-from pandos.either import (
+from pandos.monads.either import (
     Either,
     Right,
     Left,
