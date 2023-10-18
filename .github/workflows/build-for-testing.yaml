@@ -1,0 +1,89 @@
+name: Build & Publish
+
+on: [pull_request]
+
+jobs:
+  linux-mac-win-publish-compile-version:
+    # Check if PR was closed due to a merge.
+    if: github.event.pull_request.merged == true
+    name: Build & Publish Compiled Codebase!
+    runs-on: ${{ matrix.builds.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        builds: [
+          {
+            os: "macOS-latest",
+            python_requires: ">=3.10.0",
+            archs: "auto",
+            skip: "cp310-macosx_x86_64 cp311-macosx_x86_64"
+          },
+          {
+            os: "windows-latest",
+            python_requires: ">=3.10.0",
+            archs: "auto",
+            skip: ""
+          },
+          {
+            os: "ubuntu-latest",
+            python_requires: ">=3.10.0",
+            archs: "auto64",
+            skip: ""
+          }
+        ]
+    steps:
+      # Clone repo, including submodules
+      - name: clone-repo
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      # Install Python
+      - name: install-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.12'
+      # Install Python Dependencies
+      - name: install-python-deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install wheel cibuildwheel==2.16.2 twine==4.0.2
+      # https://cibuildwheel.readthedocs.io/en/stable/options/#build-skip
+      - name: build-python-wheels
+        env:
+          PANDOS_DISABLE_MYPYC: 0
+          CIBW_ENVIRONMENT: PANDOS_DISABLE_MYPYC=0
+          CIBW_PROJECT_REQUIRES_PYTHON: ${{ matrix.builds.python_requires }}
+          CIBW_SKIP: ${{ matrix.builds.skip }}
+          CIBW_ARCHS:  ${{ matrix.builds.archs }}
+          CIBW_BUILD: "cp3*"
+        run: |
+          python -m cibuildwheel --output-dir wheelhouse pandos
+
+  regular-build:
+    # Check if PR was closed due to a merge.
+    if: github.event.pull_request.merged == true
+    # Create a job on Ubuntu 20.04
+    name: Build & Publish Regular Codebase!
+    runs-on: ubuntu-20.04
+    steps:
+      # Copy github repo with submodules
+      - name: clone-repo
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      # Install python
+      - name: install-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.12'
+      # Install python dependencies
+      - name: install-python-deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install setuptools wheel twine==4.0.2
+      # Build and publish!
+      - name: build-python-sdist
+        env:
+          PANDOS_DISABLE_MYPYC: 1
+        run: |
+          (cd pandos; python setup.py sdist)
