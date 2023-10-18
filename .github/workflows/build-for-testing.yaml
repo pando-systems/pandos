@@ -1,4 +1,4 @@
-name: Build & Publish
+name: Build For Testing
 
 on: [pull_request]
 
@@ -6,7 +6,7 @@ jobs:
   linux-mac-win-publish-compile-version:
     # Check if PR was closed due to a merge.
     if: github.event.pull_request.merged == true
-    name: Build & Publish Compiled Codebase!
+    name: Build & Test Compiled Codebase!
     runs-on: ${{ matrix.builds.os }}
     strategy:
       fail-fast: false
@@ -63,7 +63,7 @@ jobs:
     # Check if PR was closed due to a merge.
     if: github.event.pull_request.merged == true
     # Create a job on Ubuntu 20.04
-    name: Build & Publish Regular Codebase!
+    name: Build & Test Regular Codebase!
     runs-on: ubuntu-20.04
     steps:
       # Copy github repo with submodules
