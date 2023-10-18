@@ -39,7 +39,7 @@ jobs:
       - name: install-python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: 3.10
       # Install Python Dependencies
       - name: install-python-deps
         run: |
@@ -51,6 +51,7 @@ jobs:
         env:
           PANDOS_DISABLE_MYPYC: 0
           CIBW_ENVIRONMENT: PANDOS_DISABLE_MYPYC=0
+          CIBW_CONFIG_SETTINGS: "--build-option=--use-mypyc"
           CIBW_PROJECT_REQUIRES_PYTHON: ${{ matrix.builds.python_requires }}
           CIBW_SKIP: ${{ matrix.builds.skip }}
           CIBW_ARCHS:  ${{ matrix.builds.archs }}
