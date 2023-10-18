@@ -4,8 +4,6 @@ on: [pull_request]
 
 jobs:
   linux-mac-win-publish-compile-version:
-    # Check if PR was closed due to a merge.
-    if: github.event.pull_request.merged == true
     name: Build & Test Compiled Codebase!
     runs-on: ${{ matrix.builds.os }}
     strategy:
@@ -60,8 +58,6 @@ jobs:
           python -m cibuildwheel --output-dir wheelhouse pandos
 
   regular-build:
-    # Check if PR was closed due to a merge.
-    if: github.event.pull_request.merged == true
     # Create a job on Ubuntu 20.04
     name: Build & Test Regular Codebase!
     runs-on: ubuntu-20.04
