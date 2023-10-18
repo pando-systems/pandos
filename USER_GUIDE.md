@@ -5,7 +5,7 @@
 Install via pip:
 
 ```commandline
-$ pip install ???
+$ pip install pandos
 ```
 
 ## Using the Pandos CLI
