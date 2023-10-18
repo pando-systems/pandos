@@ -70,7 +70,7 @@ jobs:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
-          twine upload --skip-existing pandos/wheelhouse/*
+          twine upload --skip-existing wheelhouse/*
 
   regular-build:
     # Check if PR was closed due to a merge.

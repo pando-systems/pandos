@@ -109,7 +109,7 @@ if not PANDOS_SETUP_MOCK:
         long_description_content_type="text/markdown",
         author="rhdzmota",
         author_email="info@rhdzmota.com",
-        url="rhdzmota.com/pandos",
+        url="https://github.com/pando-systems/pandos",
         # https://pypi.org/classifiers/
         classifiers=[
             "Development Status :: 2 - Pre-Alpha",
