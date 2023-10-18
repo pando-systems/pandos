@@ -25,6 +25,13 @@ $ pyenv exec python -m venv venv
 * Activate command for Win: `source venv/Scripts/activate`
 * Deactivate: `deactivate`
 
+## Installation via Pip
+
+You can install `pandos` directly via pip:
+
+```commandline
+$ pip install pandos
+```
 
 ## Development Setup
 
