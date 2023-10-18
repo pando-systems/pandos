@@ -137,6 +137,7 @@ if not PANDOS_SETUP_MOCK:
         install_requires=requirements,
         python_requires=">=3.10, <4",
         license=license_content,
+        zip_safe=False,
         **({} if PANDOS_DISABLE_MYPYC else dict(ext_modules=mypycify(mypyc_configs + mypyc_target_files))),
     )
 else:

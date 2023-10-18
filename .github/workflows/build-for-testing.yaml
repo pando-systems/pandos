@@ -12,19 +12,19 @@ jobs:
         builds: [
           {
             os: "macOS-latest",
-            python_requires: ">=3.10.0",
+            python_requires: ">=3.10",
             archs: "auto",
             skip: "cp310-macosx_x86_64 cp311-macosx_x86_64"
           },
           {
             os: "windows-latest",
-            python_requires: ">=3.10.0",
+            python_requires: ">=3.10",
             archs: "auto",
             skip: ""
           },
           {
             os: "ubuntu-latest",
-            python_requires: ">=3.10.0",
+            python_requires: ">=3.10",
             archs: "auto64",
             skip: ""
           }
@@ -57,7 +57,7 @@ jobs:
           CIBW_ARCHS:  ${{ matrix.builds.archs }}
           CIBW_BUILD: "cp3*"
         run: |
-          python -m cibuildwheel --output-dir wheelhouse pandos
+          python -m cibuildwheel --config-file pyproject.toml --output-dir wheelhouse pandos
 
   regular-build:
     # Create a job on Ubuntu 20.04
