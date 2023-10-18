@@ -1,5 +1,5 @@
 wheel==0.41.2
-cibuildwheel==2.16.2
+cibuildwheel==2.12.0
 twine==4.0.2
 mypy[mypyc]==1.6.0
 mypy-extensions==1.0.0
