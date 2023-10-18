@@ -57,7 +57,7 @@ jobs:
           CIBW_ARCHS:  ${{ matrix.builds.archs }}
           CIBW_BUILD: "cp3*"
         run: |
-          python -m cibuildwheel --config-file pyproject.toml --output-dir wheelhouse pandos
+          python -m cibuildwheel --config-file pyproject.toml --output-dir wheelhouse --allow-empty pandos
 
   regular-build:
     # Create a job on Ubuntu 20.04
