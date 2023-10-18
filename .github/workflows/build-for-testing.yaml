@@ -47,11 +47,11 @@ jobs:
           python -m pip install -r requirements-develop.txt
           python -m pip install -r requirements-build.txt
       # https://cibuildwheel.readthedocs.io/en/stable/options/#build-skip
+      # CIBW_CONFIG_SETTINGS: "--build-option=--use-mypyc"
       - name: build-python-wheels
         env:
           PANDOS_DISABLE_MYPYC: 0
           CIBW_ENVIRONMENT: PANDOS_DISABLE_MYPYC=0
-          CIBW_CONFIG_SETTINGS: "--build-option=--use-mypyc"
           CIBW_PROJECT_REQUIRES_PYTHON: ${{ matrix.builds.python_requires }}
           CIBW_SKIP: ${{ matrix.builds.skip }}
           CIBW_ARCHS:  ${{ matrix.builds.archs }}
