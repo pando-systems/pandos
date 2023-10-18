@@ -1,0 +1,108 @@
+name: Build & Publish
+
+on:
+    pull_request:
+        types:
+            - closed
+        branches:
+            - prod
+
+jobs:
+  linux-mac-win-publish-compile-version:
+    # Check if PR was closed due to a merge.
+    if: github.event.pull_request.merged == true
+    name: Build & Publish Compiled Codebase!
+    runs-on: ${{ matrix.builds.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        builds: [
+          {
+            os: "macOS-latest",
+            python_requires: ">=3.10",
+            archs: "auto",
+            skip: "cp310-macosx_x86_64 cp311-macosx_x86_64"
+          },
+          {
+            os: "windows-latest",
+            python_requires: ">=3.10",
+            archs: "auto",
+            skip: ""
+          },
+          {
+            os: "ubuntu-latest",
+            python_requires: ">=3.10",
+            archs: "auto64",
+            skip: "cp310-musllinux_x86_64 cp311-musllinux_x86_64"
+          }
+        ]
+    steps:
+      # Clone repo, including submodules
+      - name: clone-repo
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      # Install Python
+      - name: install-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      # Install Python Dependencies
+      - name: install-python-deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-develop.txt
+          python -m pip install -r requirements-build.txt
+      # https://cibuildwheel.readthedocs.io/en/stable/options/#build-skip
+      # CIBW_CONFIG_SETTINGS: "--build-option=--use-mypyc"
+      - name: build-python-wheels
+        env:
+          PANDOS_DISABLE_MYPYC: 0
+          CIBW_ENVIRONMENT: PANDOS_DISABLE_MYPYC=0
+          CIBW_PROJECT_REQUIRES_PYTHON: ${{ matrix.builds.python_requires }}
+          CIBW_SKIP: ${{ matrix.builds.skip }}
+          CIBW_ARCHS:  ${{ matrix.builds.archs }}
+          CIBW_BUILD: "cp3*"
+        run: |
+          python -m cibuildwheel --config-file pyproject.toml --output-dir wheelhouse --allow-empty pandos
+      - name: publish-python-wheels
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          twine upload --skip-existing pandos/wheelhouse/*
+
+  regular-build:
+    # Check if PR was closed due to a merge.
+    if: github.event.pull_request.merged == true
+    # Create a job on Ubuntu 20.04
+    name: Build & Publish Regular Codebase!
+    runs-on: ubuntu-20.04
+    steps:
+      # Copy github repo with submodules
+      - name: clone-repo
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      # Install python
+      - name: install-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.12'
+      # Install python dependencies
+      - name: install-python-deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-build.txt
+      # Build and publish!
+      - name: build-python-sdist
+        env:
+          PANDOS_DISABLE_MYPYC: 1
+        run: |
+          (cd pandos; python setup.py sdist)
+      - name: publish-python-sdist
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          twine upload --skip-existing pandos/dist/*
