@@ -8,5 +8,8 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
+[tool.cibuildwheel]
+before-build = "python -m pip install -r requirements-build.txt"
+
 [tool.cibuildwheel.config-settings]
 --build-option = "--use-mypyc"
