@@ -26,7 +26,7 @@ jobs:
             os: "ubuntu-latest",
             python_requires: ">=3.10",
             archs: "auto64",
-            skip: ""
+            skip: "cp310-musllinux_x86_64"
           }
         ]
     steps:
