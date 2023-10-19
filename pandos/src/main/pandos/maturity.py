@@ -4,10 +4,13 @@ from logging import Logger
 from dataclasses import dataclass
 from typing import Optional
 
-from pandos.exceptions import pandos_exceptions
+from pandos.settings import get_logger
 from pandos.settings import (
     PANDOS_DISABLE_FEATURE_MATURITY_LOGS,
 )
+
+
+logger = get_logger(name=__name__)
 
 
 # pandos-mypyc-ignore-file
@@ -40,6 +43,8 @@ class FeatureMaturity:
         # Verify if we have a message template
         if not self.message:
             if self.maturity_level.code < 1:
+                from pandos.exceptions import pandos_exceptions  # Lazy import
+
                 pandos_exceptions.FEATURE_MATURITY_LEVEL_UNDEFINED_MESSAGE_INCONSISTENCY.throw()
             return
         # Format the message template and pass it through the logs
@@ -110,4 +115,12 @@ class MaturityLevel(FeatureMaturity, enum.Enum):
                 return 0
             case self.GAMMA | self.STABLE:
                 return 1
+        from pandos.exceptions import pandos_exceptions  # Lazy import
+
         return pandos_exceptions.FEATURE_MATURITY_LEVEL_UNDEFINED.throw()
+
+
+MaturityLevel.ALPHA.set_module(
+    file=__file__,
+    logger=logger
+)
