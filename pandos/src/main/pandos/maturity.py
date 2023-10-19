@@ -4,10 +4,14 @@ from logging import Logger
 from dataclasses import dataclass
 from typing import Optional
 
+from pandos.settings import get_logger
 from pandos.exceptions import pandos_exceptions
 from pandos.settings import (
     PANDOS_DISABLE_FEATURE_MATURITY_LOGS,
 )
+
+
+logger = get_logger(name=__name__)
 
 
 # pandos-mypyc-ignore-file
@@ -111,3 +115,9 @@ class MaturityLevel(FeatureMaturity, enum.Enum):
             case self.GAMMA | self.STABLE:
                 return 1
         return pandos_exceptions.FEATURE_MATURITY_LEVEL_UNDEFINED.throw()
+
+
+MaturityLevel.ALPHA.set_module(
+    file=__file__,
+    logger=logger
+)

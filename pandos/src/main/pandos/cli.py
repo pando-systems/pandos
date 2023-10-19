@@ -10,10 +10,17 @@ from typing import (
 )
 
 from pandos.version import Version, version
+from pandos.maturity import MaturityLevel
 from pandos.settings import get_logger
 
 
 logger = get_logger(name=__name__)
+
+
+MaturityLevel.ALPHA.set_module(
+    file=__file__,
+    logger=logger
+)
 
 
 @dataclass(frozen=True, slots=True)
