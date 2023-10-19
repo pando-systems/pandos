@@ -10,10 +10,17 @@ from typing import (
 )
 
 from pandos.version import Version, version
+from pandos.maturity import MaturityLevel
 from pandos.settings import get_logger
 
 
 logger = get_logger(name=__name__)
+
+
+MaturityLevel.ALPHA.set_module(
+    file=__file__,
+    logger=logger
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -71,3 +78,14 @@ class CLI:
             logger.info("Pandos command: %s", command)
             out = executable(*args, **kwargs)
         return out
+
+    @classmethod
+    def system(cls, syscli: str) -> Type:
+        import importlib
+
+        module_name = ".".join(["pandos", "system", syscli, "syscli"])
+        module_reference = importlib.import_module(module_name)
+        cls_ext = getattr(module_reference, "CLIExtension")
+        return type("CLI" + syscli.title(), (cls_ext, cls), {
+            "pandos_version": cls().version.value,
+        })

@@ -5,8 +5,20 @@ from typing import (
 
 from dataclasses import dataclass
 
+from pandos.settings import get_logger
+from pandos.maturity import MaturityLevel
 
-@dataclass(frozen=True)
+
+logger = get_logger(name=__name__)
+
+
+MaturityLevel.STABLE.set_module(
+    file=__file__,
+    logger=logger
+)
+
+
+@dataclass(frozen=True, slots=True)
 class Version:
     name: str
     value: str
