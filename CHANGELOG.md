@@ -1,9 +1,23 @@
 # Changelog: Pandos
 
+Release types (`X.Y.Z`):
+* `major`: X
+* `minor`: Y
+* `patch`: Z
+
+
+## `0.3.0`
+
+* Date: `2023-10-20`
+* Release Type: `minor`
+
+This release contains the following closed issues:
+* #37
+
 ## `0.2.0`
 
 * Date: `2023-10-18`
-* Release Type (major/minor/patch): `minor`
+* Release Type: `minor`
 
 This release contains the following closed issues:
 * #29
@@ -12,7 +26,7 @@ This release contains the following closed issues:
 ## `0.1.0`
 
 * Date: `2023-10-18`
-* Release Type (major/minor/patch): `minor`
+* Release Type: `minor`
 
 This first release contains the following issues:
 * #1 
