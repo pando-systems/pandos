@@ -1,7 +1,18 @@
 from enum import auto
 from typing import Any
 
+from pandos.settings import get_logger
+from pandos.maturity import MaturityLevel
 from pandos.utils.custom_enum_types import TextEnum
+
+
+logger = get_logger(name=__name__)
+
+
+MaturityLevel.ALPHA.set_module(
+    file=__file__,
+    logger=logger,
+)
 
 
 class PyObjSerializationFrameworkEnum(TextEnum):
