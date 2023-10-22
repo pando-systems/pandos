@@ -1,3 +1,4 @@
+import codecs
 from enum import auto
 from typing import Any
 
@@ -23,18 +24,18 @@ class PyObjSerializationFrameworkEnum(TextEnum):
         match self:
             case self.DILL:
                 import dill
-                return dill.loads(string, **kwargs)
+                return dill.loads(codecs.decode(string.encode(), "base64"), **kwargs)
             case self.PICKLE:
                 import pickle
-                return pickle.loads(string, **kwargs)
+                return pickle.loads(codecs.decode(string.encode(), "base64"), **kwargs)
         raise ValueError("Unrecognized deserialization framework: " + self.name)
 
-    def dumps(self, obj: Any, **kwargs):
+    def dumps(self, obj: Any, **kwargs) -> str:
         match self:
             case self.DILL:
                 import dill
-                return dill.dumps(obj, **kwargs)
+                return codecs.encode(dill.dumps(obj, **kwargs), "base64").decode()
             case self.PICKLE:
                 import pickle
-                return pickle.loads(streing, **kwargs)
+                return codecs.encode(pickle.dumps(obj, **kwargs), "base64").decode()
         raise ValueError("Unrecognized serialization framework: " + self.name)
