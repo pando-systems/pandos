@@ -5,6 +5,13 @@ Release types (`X.Y.Z`):
 * `minor`: Y
 * `patch`: Z
 
+## `0.4.0`
+
+* Date: `2023-10-21`
+* Release Type: `minor`
+
+This release contains the following closed issues:
+* #41
 
 ## `0.3.0`
 
